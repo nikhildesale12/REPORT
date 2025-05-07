@@ -60,7 +60,7 @@ def main():
     st.sidebar.title("Executive Nexus")
     st.sidebar.markdown("A Gen AI-Powered Cloud Reporting Engine For Strategic Executive Decision-Making")
     
-    st.markdown("<div class='pdf-header'>Executive Nexus</div>", unsafe_allow_html=True)
+    st.markdown("<div class='pdf-header'><h1>Executive Nexus</h1></div>", unsafe_allow_html=True)
 
 
     try:
