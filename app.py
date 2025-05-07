@@ -73,7 +73,7 @@ def main():
 
         col1, col2 = st.columns([1, 4])
         with col1:
-            selected_pdf = st.selectbox("Choose a PDF to display", pdf_files)
+            selected_pdf = st.selectbox("Choose a report to display", pdf_files)
 
         with col2:
             if selected_pdf:
