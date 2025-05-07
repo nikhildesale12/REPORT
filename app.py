@@ -57,10 +57,10 @@ def display_pdf_pages(pdf_stream):
 # Main app
 def main():
     st.sidebar.image("https://azurecomcdn.azureedge.net/cvt-64653e08a3cfd80fdb4576fcb05b11197d4c65b362791fb4b3cd78161f832a55/images/page/overview/hero-image.png", use_container_width=True)
-    st.sidebar.title("Azure PDF Viewer")
-    st.sidebar.markdown("View and read PDF files from your Azure Blob container.")
+    st.sidebar.title("Executive Nexus")
+    st.sidebar.markdown("A Gen AI-Powered Cloud Reporting Engine For Strategic Exeutive Decision -Making")
     
-    st.markdown("<div class='pdf-header'>📁 PDF Viewer from Azure Blob Storage</div>", unsafe_allow_html=True)
+    st.markdown("<div class='pdf-header'>📁 PDF Viewer</div>", unsafe_allow_html=True)
 
 
     try:
@@ -68,7 +68,7 @@ def main():
         pdf_files = list_pdfs(blob_service_client)
 
         if not pdf_files:
-            st.warning("⚠️ No PDF files found in the container.")
+            st.warning("⚠️ No PDF files found.")
             return
 
         col1, col2 = st.columns([1, 4])
