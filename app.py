@@ -8,6 +8,33 @@ from PIL import Image
 AZURE_CONNECTION_STRING = st.secrets["AZURE_CONNECTION_STRING"]  # Or hardcode for testing
 CONTAINER_NAME = "salesdata"
 
+st.set_page_config(page_title="Azure PDF Viewer", page_icon="📄", layout="wide")
+
+# --- Custom CSS ---
+st.markdown("""
+    <style>
+    .main {
+        background-color: #f5f7fa;
+    }
+    .pdf-header {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+    .stSelectbox label {
+        font-weight: bold;
+        color: #34495e;
+    }
+    .footer {
+        font-size: 12px;
+        text-align: center;
+        color: #888;
+        margin-top: 40px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 def list_pdfs(_blob_service_client):
     container_client = _blob_service_client.get_container_client(CONTAINER_NAME)
@@ -29,24 +56,35 @@ def display_pdf_pages(pdf_stream):
 
 # Main app
 def main():
-    st.title("📄 Azure Blob PDF Viewer")
+    st.sidebar.image("https://azurecomcdn.azureedge.net/cvt-64653e08a3cfd80fdb4576fcb05b11197d4c65b362791fb4b3cd78161f832a55/images/page/overview/hero-image.png", use_container_width=True)
+    st.sidebar.title("Azure PDF Viewer")
+    st.sidebar.markdown("View and read PDF files from your Azure Blob container.")
+    
+    st.markdown("<div class='pdf-header'>📁 PDF Viewer from Azure Blob Storage</div>", unsafe_allow_html=True)
+
 
     try:
         blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
         pdf_files = list_pdfs(blob_service_client)
 
         if not pdf_files:
-            st.warning("No PDF files found in the container.")
+            st.warning("⚠️ No PDF files found in the container.")
             return
 
-        selected_pdf = st.selectbox("Choose a PDF to display", pdf_files)
+        col1, col2 = st.columns([1, 4])
+        with col1:
+            selected_pdf = st.selectbox("Choose a PDF to display", pdf_files)
 
-        if selected_pdf:
-            pdf_stream = fetch_pdf(blob_service_client, selected_pdf)
-            display_pdf_pages(pdf_stream)
+        with col2:
+            if selected_pdf:
+                st.info(f"Now displaying: **{selected_pdf}**")
+                pdf_stream = fetch_pdf(blob_service_client, selected_pdf)
+                display_pdf_pages(pdf_stream)
+
 
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error("🚨 An error occurred while accessing Azure Blob Storage.")
+        st.exception(e)
 
 if __name__ == "__main__":
     main()
