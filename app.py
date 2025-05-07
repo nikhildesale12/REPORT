@@ -56,7 +56,7 @@ def display_pdf_pages(pdf_stream):
 
 # Main app
 def main():
-    st.sidebar.image("https://azurecomcdn.azureedge.net/cvt-64653e08a3cfd80fdb4576fcb05b11197d4c65b362791fb4b3cd78161f832a55/images/page/overview/hero-image.png", use_container_width=True)
+    st.sidebar.image("https://assets.zenn.com/strapi_assets/ai_logo_generator_logo_60fd086926.png", use_container_width=True)
     st.sidebar.title("Executive Nexus")
     st.sidebar.markdown("A Gen AI-Powered Cloud Reporting Engine For Strategic Executive Decision-Making")
     
